@@ -16,12 +16,21 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+$full-height: 100%;
+
+html {
+  height: $full-height;
+
+  body {
+    height: calc(100% - 16px);
+    background: #f7f7f7;
+
+    #app {
+      font-family: 'Ubuntu', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      height: $full-height;
+    }
+  }
 }
 </style>
