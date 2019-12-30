@@ -1,44 +1,64 @@
 <template name="modal">
-  <div class="modal-mask">
-    <div class="modal-wrapper">
-      <div class="modal-container">
+  <form @submit.prevent="addNote" action="" novalidate="true">
+    <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
 
-        <div class="modal-header">
-          <h2 class="modal-header__title">News</h2>
-        </div>
+            <div class="modal-header">
+              <h2 class="modal-header__title">News</h2>
+            </div>
 
-        <div class="modal-body">
-          <input type="text" name="title" placeholder="Add title"
-            class="modal-body__title" v-model="noteTitle">
-          <textarea type="text" name="note" placeholder="Add note (max 150 characters)"
-            maxlength="150" class="modal-body__note" v-model="noteContent"></textarea>
-        </div>
+            <div class="modal-body">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors" :key="error">{{ error }}</li>
+                </ul>
+              </p>
+              <input type="text" name="title" placeholder="Add title"
+                class="modal-body__title" v-model="noteTitle">
+              <textarea type="text" name="note" placeholder="Add note (max 150 characters)"
+                maxlength="150" class="modal-body__note" v-model="noteContent"></textarea>
+            </div>
 
-        <div class="modal-footer">
-          <button class="modal__btn modal__btn--save" title="Add note" @click="addNote">
-            Save
-          </button>
-          <button class="modal__btn modal__btn--cancel" title="Cancel adding"
-            @click="$emit('close')">
-            Cancel
-          </button>
+            <div class="modal-footer">
+              <button class="modal__btn modal__btn--save" title="Add note" type="submit">
+                Save
+              </button>
+              <button class="modal__btn modal__btn--cancel" title="Cancel adding"
+                @click="$emit('close')">
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
 export default {
   name: 'Modal',
   data: () => ({
-    noteContent: '',
-    noteTitle: '',
+    errors: [],
+    noteContent: undefined,
+    noteTitle: undefined,
   }),
   methods: {
-    addNote() {
-      this.$emit('save', this.noteTitle, this.noteContent);
-      this.$emit('close');
+    addNote(e) {
+      this.errors = [];
+
+      if (this.noteContent && this.noteTitle) {
+        this.$emit('save', this.noteTitle, this.noteContent);
+        this.$emit('close');
+      }
+      if (!this.noteTitle) {
+        this.errors.push('Title required!');
+      }
+      if (!this.noteContent) {
+        this.errors.push('Note content required!');
+      }
+      e.preventDefault();
     },
   },
 };
@@ -64,7 +84,6 @@ export default {
 
 .modal-container {
   width: 400px;
-  height: 300px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -93,7 +112,7 @@ export default {
 }
 .modal__btn {
   border: none;
-  height: 60%;
+  height: 30px;
   width: 100px;
 
   &--save {
