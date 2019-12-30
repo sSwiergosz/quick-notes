@@ -47,18 +47,31 @@
             </span>
           </template>
         </vue-good-table>
+        <button
+          class="notes__btn-add"
+          title="Add quick note"
+          @click="showModal = true"
+        >Add</button>
       </div>
     </section>
+
+    <Modal
+      v-if="showModal"
+      @close="showModal = false"
+      @save="addNote"
+    />
   </div>
 </template>
 
 <script>
 import 'vue-good-table/dist/vue-good-table.css';
 import { VueGoodTable } from 'vue-good-table';
+import Modal from './Modal.vue';
 
 export default {
   name: 'Dashboard',
   components: {
+    Modal,
     VueGoodTable,
   },
   data: () => ({
@@ -103,7 +116,18 @@ export default {
         status: 'Not completed',
       },
     ],
+    showModal: false,
   }),
+  methods: {
+    addNote(title, content) {
+      this.rows.push({
+        id: this.rows.length + 1,
+        title,
+        content,
+        status: 'New',
+      });
+    },
+  },
 };
 </script>
 
@@ -111,10 +135,12 @@ export default {
 $background-primary: #ffffff;
 $box-shadow-primary: 0 1px 3px rgba(0,0,0,0.12);
 
-@mixin arrow {
+@mixin arrow ($border-color, $transform-deg) {
+  border: solid $border-color;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
+  transform: rotate($transform-deg);
 }
 
 .container {
@@ -135,26 +161,36 @@ $box-shadow-primary: 0 1px 3px rgba(0,0,0,0.12);
         font-weight: 300;
 
         &.sortable:after {
-          border: solid #afaeb2;
-          @include arrow;
-          transform: rotate(-135deg);
+          @include arrow($border-color:#afaeb2, $transform-deg:-135deg);
         }
         &.sorting-asc:after {
-          border: solid #f4f4f4;
-          @include arrow;
-          transform: rotate(-135deg);
+          @include arrow($border-color:#f4f4f4, $transform-deg:-135deg);
         }
         &.sortable:before {
-          border: solid #afaeb2;
-          @include arrow;
-          transform: rotate(45deg);
+          @include arrow($border-color:#afaeb2, $transform-deg:45deg);
         }
         &.sorting-desc:before {
-          border: solid #f4f4f4;
-          @include arrow;
-          transform: rotate(45deg);
+          @include arrow($border-color:#f4f4f4, $transform-deg:45deg);
         }
       }
+    }
+    & .notes__btn-add {
+      float: right;
+      margin-top: 20px;
+      border: none;
+      width: 100px;
+      height: 30px;
+      padding: 0;
+      background-color: #006699;
+      text-align: center;
+      color: #ffffff;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    & .notes__btn-add:focus {
+      outline: none;
     }
   }
 
