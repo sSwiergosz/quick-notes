@@ -6,7 +6,7 @@
           Total
         </div>
         <div class="statistics__counter--content">
-          18
+          {{notes.length}}
         </div>
       </div>
       <div class="statistics__counter">
@@ -14,7 +14,7 @@
           Completed
         </div>
         <div class="statistics__counter--content">
-          12
+          {{notes.filter(el => el.status === 'Completed').length}}
         </div>
       </div>
       <div class="statistics__counter">
@@ -22,7 +22,7 @@
           Not completed
         </div>
         <div class="statistics__counter--content">
-          6
+          {{notes.filter(el => el.status === 'Not completed').length}}
         </div>
       </div>
     </section>
@@ -31,7 +31,7 @@
         <vue-good-table
           class="notes__table"
           :columns="columns"
-          :rows="rows"
+          :rows="notes"
           :select-options="{
             enabled: true,
             disableSelectInfo: true,
@@ -96,35 +96,20 @@ export default {
         field: 'status',
       },
     ],
-    rows: [
-      {
-        id: 1,
-        title: 'delectus aut autem',
-        content: 'Lorem ipsum',
-        status: 'New',
-      },
-      {
-        id: 2,
-        title: 'quis ut nam facilis et officia qui',
-        content: 'Lorem ipsum',
-        status: 'Completed',
-      },
-      {
-        id: 3,
-        title: 'fugiat veniam minus',
-        content: 'Lorem ipsum',
-        status: 'Not completed',
-      },
-    ],
     showModal: false,
   }),
+  computed: {
+    notes() {
+      return this.$store.getters.getNotes;
+    },
+  },
   methods: {
     addNote(title, content) {
-      this.rows.push({
-        id: this.rows.length + 1,
+      this.$store.commit('addNote', {
+        id: this.notes.length + 1,
         title,
         content,
-        status: 'New',
+        status: 'New', // TODO - what to do with status?
       });
     },
   },
