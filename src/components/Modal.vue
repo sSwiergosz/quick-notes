@@ -53,10 +53,10 @@ export default {
         this.$emit('close');
       }
       if (!this.noteTitle) {
-        this.errors.push('Title required!');
+        this.errors.push('Title not provided!');
       }
       if (!this.noteContent) {
-        this.errors.push('Note content required!');
+        this.errors.push('Note content not provided!');
       }
       e.preventDefault();
     },

@@ -30,6 +30,8 @@
       <div>
         <vue-good-table
           class="notes__table"
+          ref="notes-table"
+          @on-selected-rows-change="selectionChanged"
           :columns="columns"
           :rows="notes"
           :select-options="{
@@ -96,6 +98,7 @@ export default {
         field: 'status',
       },
     ],
+    deleteMsg: 'Do you want to delete this news?',
     showModal: false,
   }),
   computed: {
@@ -110,6 +113,30 @@ export default {
         title,
         content,
         status: 'New', // TODO - what to do with status?
+      });
+    },
+    selectionChanged(rowObj) {
+      if (!rowObj.selectedRows[0]) return;
+      const rowId = rowObj.selectedRows[0].id; // we delete one news at time
+      this.$toasted.show(this.deleteMsg, {
+        icon: 'exclamation-triangle',
+        position: 'bottom-center',
+        action: [
+          {
+            text: 'No',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0);
+              this.$refs['notes-table'].unselectAllInternal(); // deselect after canceling
+            },
+          },
+          {
+            text: 'Yes',
+            onClick: (e, toastObject) => {
+              this.$store.commit('removeNote', rowId);
+              toastObject.goAway(0);
+            },
+          },
+        ],
       });
     },
   },

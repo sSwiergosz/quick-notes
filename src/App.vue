@@ -33,4 +33,27 @@ html {
     }
   }
 }
+.toasted.toasted-primary {
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #F01E1E;
+  color: #FFFFFF;
+  & .action.ripple {
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    font-weight: 300;
+    text-transform: none;
+    width: 70px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  & .action.ripple:first-of-type {
+    margin-right: 2px;
+    margin-left: 80px;
+  }
+  & .action.ripple:hover {
+    background-color: #FFFFFF;
+    color: #F01E1E;
+    text-decoration: none;
+  }
+}
 </style>

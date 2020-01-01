@@ -30,6 +30,10 @@ export default new Vuex.Store({
     addNote(state, note) {
       state.notes.push(note);
     },
+    removeNote(state, noteId) {
+      const noteIndex = state.notes.findIndex(el => el.id === noteId);
+      state.notes.splice(noteIndex, 1);
+    },
   },
   actions: {
   },
