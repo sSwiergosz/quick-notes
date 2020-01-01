@@ -108,8 +108,9 @@ export default {
   },
   methods: {
     addNote(title, content) {
+      const newId = this.notes[this.notes.length - 1].id + 1;
       this.$store.commit('addNote', {
-        id: this.notes.length + 1,
+        id: newId,
         title,
         content,
         status: 'New', // TODO - what to do with status?
