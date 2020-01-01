@@ -17,6 +17,7 @@ export default {
 
 <style lang="scss">
 $full-height: 100%;
+$snackbar-red: #F01E1E;
 
 html {
   height: $full-height;
@@ -35,7 +36,7 @@ html {
 }
 .toasted.toasted-primary {
   font-family: 'Ubuntu', sans-serif;
-  background-color: #F01E1E;
+  background-color: $snackbar-red;
   color: #FFFFFF;
   & .action.ripple {
     color: #FFFFFF;
@@ -52,7 +53,7 @@ html {
   }
   & .action.ripple:hover {
     background-color: #FFFFFF;
-    color: #F01E1E;
+    color: $snackbar-red;
     text-decoration: none;
   }
 }

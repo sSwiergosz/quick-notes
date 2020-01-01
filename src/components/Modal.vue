@@ -65,6 +65,8 @@ export default {
 </script>
 
 <style lang="scss">
+$btn-blue: #006699;
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -118,14 +120,14 @@ export default {
   &--save {
     margin-right: 20px;
     padding: 0;
-    background-color: #006699;
+    background-color: $btn-blue;
     text-align: center;
     color: #ffffff;
     border-radius: 3px;
   }
   &--cancel {
     background-color: #ffffff;
-    color: #006699;
+    color: $btn-blue;
   }
   &:hover {
     cursor: pointer;
