@@ -11,6 +11,14 @@
       </div>
       <div class="statistics__counter">
         <div class="statistics__counter--header">
+          New
+        </div>
+        <div class="statistics__counter--content">
+          {{notes.filter(el => el.status === 'New').length}}
+        </div>
+      </div>
+      <div class="statistics__counter">
+        <div class="statistics__counter--header">
           Completed
         </div>
         <div class="statistics__counter--content">
@@ -191,8 +199,8 @@ $box-shadow-primary: 0 1px 3px rgba(0,0,0,0.12);
       float: right;
       margin-top: 20px;
       border: none;
-      width: 100px;
-      height: 30px;
+      width: 140px;
+      height: 35px;
       padding: 0;
       background-color: #006699;
       text-align: center;
